@@ -4,129 +4,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab Inventory & Borrowing - Letran Calamba</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        
+        /* Letran Calamba Modern Theme: Red, Blue, White */
         :root {
-            --color-primary-light: #3B82F6; /* Blue-500 */
-            --color-primary-dark: #2563EB;  /* Blue-600 */
-            --color-secondary-light: #E5E7EB; /* Gray-200 */
-            --color-secondary-dark: #9CA3AF; /* Gray-400 */
-            --color-accent-light: #EF4444; /* Red-500 */
-            --color-accent-dark: #DC2626; /* Red-600 */
-            --color-text-light: #1F2937; /* Gray-800 */
-            --color-text-dark: #F3F4F6; /* Gray-100 */
-            --color-bg-light: #f0f4f8; /* Light blue-gray */
-            --color-bg-dark: #111827; /* Gray-900 */
-            --color-card-bg-light: white;
-            --color-card-bg-dark: #1F2937; /* Gray-800 */
-            --color-border-light: #D1D5DB; /* Gray-300 */
-            --color-border-dark: #374151; /* Gray-700 */
+            --letran-blue: #0033A0; /* Official Letran Blue */
+            --letran-blue-darker: #00227A;
+            --letran-red: #C8102E;   /* Official Letran Red */
+            --letran-red-darker: #A8001E;
+            --letran-white: #FFFFFF;
+            --letran-light-gray: #f0f4f8; /* For backgrounds */
+            --letran-medium-gray: #D1D5DB; /* Borders */
+            --letran-dark-gray: #374151;  /* Text on light bg */
+
+            /* Light Mode Variables */
+            --color-primary: var(--letran-blue);
+            --color-primary-hover: var(--letran-blue-darker);
+            --color-accent: var(--letran-red);
+            --color-accent-hover: var(--letran-red-darker);
+            --color-bg: var(--letran-light-gray);
+            --color-card-bg: var(--letran-white);
+            --color-text: var(--letran-dark-gray);
+            --color-text-on-primary: var(--letran-white);
+            --color-text-on-accent: var(--letran-white);
+            --color-border: var(--letran-medium-gray);
+            --color-header-bg: var(--letran-blue);
+            --color-header-text: var(--letran-white);
+            --color-input-bg: var(--letran-white);
+            --color-input-border: var(--letran-medium-gray);
+            --color-table-header-bg: #E5E7EB; /* Lighter Gray */
         }
 
         html.dark {
-            --color-primary-light: #60A5FA; /* Blue-400 */
-            --color-primary-dark: #3B82F6;  /* Blue-500 */
-            --color-secondary-light: #374151; /* Gray-700 */
-            --color-secondary-dark: #4B5563; /* Gray-600 */
-            /* --color-accent-light: #F87171; Red-400 */
-            /* --color-accent-dark: #EF4444; Red-500 */
-            --color-text-light: #F3F4F6; /* Gray-100 */
-            --color-text-dark: #D1D5DB; /* Gray-300 */
-            --color-bg-light: #111827; /* Gray-900 */
-            --color-bg-dark: #000000; /* Black */
-            --color-card-bg-light: #1F2937; /* Gray-800 */
-            --color-card-bg-dark: #111827; /* Gray-900 */
-            --color-border-light: #374151; /* Gray-700 */
-            --color-border-dark: #4B5563; /* Gray-600 */
+            --letran-dark-mode-bg: #111827; /* Dark Gray for overall BG */
+            --letran-dark-mode-card: #1F2937; /* Slightly lighter for cards */
+            --letran-dark-mode-text: #F3F4F6; /* Light Gray for text */
+            --letran-dark-mode-border: #374151; /* Darker Gray for borders */
+            --letran-blue-light-for-dark: #3B82F6; /* Brighter blue for dark mode */
+            --letran-red-light-for-dark: #F87171; /* Brighter red for dark mode */
+
+
+            /* Dark Mode Variables */
+            --color-primary: var(--letran-blue-light-for-dark);
+            --color-primary-hover: var(--letran-blue);
+            --color-accent: var(--letran-red-light-for-dark);
+            --color-accent-hover: var(--letran-red);
+            --color-bg: var(--letran-dark-mode-bg);
+            --color-card-bg: var(--letran-dark-mode-card);
+            --color-text: var(--letran-dark-mode-text);
+            --color-text-on-primary: var(--letran-white);
+            --color-text-on-accent: var(--letran-white);
+            --color-border: var(--letran-dark-mode-border);
+            --color-header-bg: var(--letran-dark-mode-card); /* Header matches card bg in dark */
+            --color-header-text: var(--letran-blue-light-for-dark); /* Blue text on dark header */
+            --color-input-bg: var(--letran-dark-mode-card);
+            --color-input-border: var(--letran-dark-mode-border);
+            --color-table-header-bg: #374151; /* Darker Gray for table header */
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg-light);
-            color: var(--color-text-light);
+            background-color: var(--color-bg);
+            color: var(--color-text);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .container {
+        .page-container { /* Renamed from .container to avoid conflict */
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        .header-title {
-            color: var(--color-primary-dark);
-            /* Letran Calamba - Arriba Letran! */
-        }
-        html.dark .header-title {
-             color: var(--color-primary-light);
+            padding: 0 20px 20px 20px; /* No top padding, header handles it */
         }
 
+        .main-header {
+            background-color: var(--color-header-bg);
+            color: var(--color-header-text);
+            padding: 20px 40px; /* More padding for a prominent header */
+            margin-bottom: 30px; /* Space between header and content */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .main-header .header-title {
+            font-size: 1.75rem; /* Larger title */
+            font-weight: 800; /* Bolder */
+        }
+        html.dark .main-header .header-title {
+            color: var(--color-header-text); /* Ensure title color is correct in dark mode */
+        }
+
+
         .card {
-            background-color: var(--color-card-bg-light);
-            border: 1px solid var(--color-border-light);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px; /* Slightly more rounded */
+            padding: 25px; /* More padding */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            margin-bottom: 25px;
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .btn {
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: 500;
+            padding: 12px 20px; /* Larger buttons */
+            border-radius: 8px;
+            font-weight: 600; /* Bolder text */
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
             border: none;
+            text-transform: uppercase; /* Uppercase button text */
+            letter-spacing: 0.5px;
+        }
+        .btn:active {
+            transform: translateY(1px);
         }
         .btn-primary {
-            background-color: var(--color-primary-light);
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
         }
         .btn-primary:hover {
-            background-color: var(--color-primary-dark);
+            background-color: var(--color-primary-hover);
         }
         .btn-secondary {
-            background-color: var(--color-secondary-dark);
-            color: var(--color-text-dark);
-        }
-        html.dark .btn-secondary {
-             color: var(--color-text-light); /* Ensure text is visible on dark secondary buttons */
+            background-color: var(--color-border); /* Using border color for secondary */
+            color: var(--color-text);
         }
         .btn-secondary:hover {
-            background-color: var(--color-secondary-light);
+            background-color: var(--letran-medium-gray);
+            filter: brightness(0.95);
         }
+        html.dark .btn-secondary {
+             background-color: var(--color-border);
+             color: var(--color-text);
+        }
+        html.dark .btn-secondary:hover {
+             filter: brightness(1.2);
+        }
+
         .btn-danger {
-            background-color: var(--color-accent-light);
-            color: white;
+            background-color: var(--color-accent);
+            color: var(--color-text-on-accent);
         }
         .btn-danger:hover {
-            background-color: var(--color-accent-dark);
+            background-color: var(--color-accent-hover);
         }
         .input-field, .select-field {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--color-border-light);
-            background-color: var(--color-bg-light); /* Match body bg for inputs */
-            color: var(--color-text-light);
-            border-radius: 6px;
-            margin-bottom: 10px;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            padding: 12px 15px; /* More padding */
+            border: 1px solid var(--color-input-border);
+            background-color: var(--color-input-bg);
+            color: var(--color-text);
+            border-radius: 8px;
+            margin-bottom: 15px; /* More margin */
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
         }
-        html.dark .input-field, html.dark .select-field {
-             background-color: var(--color-card-bg-dark); /* Slightly different for contrast in dark mode */
+        .input-field:focus, .select-field:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(var(--letran-blue-rgb, 0, 51, 160), 0.3); /* Use RGB for box-shadow color */
         }
+        html.dark .input-field:focus, html.dark .select-field:focus {
+            box-shadow: 0 0 0 3px rgba(var(--letran-blue-light-rgb, 59, 130, 246), 0.3);
+        }
+
+
         .table-auto th, .table-auto td {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--color-border-light);
+            padding: 14px 18px; /* More padding */
+            border-bottom: 1px solid var(--color-border);
             text-align: left;
         }
         .table-auto th {
-            background-color: var(--color-secondary-light); /* Lighter for light mode header */
-            font-weight: 600;
-        }
-        html.dark .table-auto th {
-            background-color: var(--color-card-bg-dark); /* Darker for dark mode header */
+            background-color: var(--color-table-header-bg);
+            font-weight: 700; /* Bolder */
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
         }
         .modal {
             position: fixed;
@@ -134,49 +185,83 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.65); /* Darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
         .modal-content {
-            background-color: var(--color-card-bg-light);
-            padding: 30px;
-            border-radius: 8px;
+            background-color: var(--color-card-bg);
+            padding: 35px; /* More padding */
+            border-radius: 12px;
             width: 90%;
-            max-width: 500px;
-            color: var(--color-text-light);
+            max-width: 550px; /* Slightly wider modal */
+            color: var(--color-text);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         label {
-            color: var(--color-text-light);
+            color: var(--color-text);
+            font-weight: 500; /* Slightly bolder labels */
         }
-        /* Hide sections by default */
         #adminView, #studentView, #borrowItemModal, #updateConditionModal {
             display: none;
         }
         .theme-toggle-button {
             background: none;
-            border: none;
-            color: var(--color-text-light);
-            font-size: 1.5rem;
+            border: 1px solid transparent; /* For focus state */
+            color: var(--color-header-text);
+            font-size: 1.5rem; /* Consistent size */
             cursor: pointer;
-            padding: 5px;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
+        .theme-toggle-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        html.dark .theme-toggle-button:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+        .theme-toggle-button:focus {
+            outline: none;
+            border-color: var(--color-header-text);
+        }
+        .user-info-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between elements */
+        }
+        .user-info-controls #currentUser {
+            font-size: 0.9rem;
+        }
+        .user-info-controls #logoutButton {
+            padding: 8px 15px; /* Smaller logout button */
+            font-weight: 500;
+            text-transform: none; /* Normal case for logout */
+        }
+
+        /* For focus ring color variables */
+        :root {
+            --letran-blue-rgb: 0, 51, 160;
+            --letran-blue-light-rgb: 59, 130, 246;
+        }
+
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="flex justify-between items-center py-6">
-            <h1 class="text-4xl font-bold header-title">Lab Inventory - Letran Calamba</h1>
-            <div>
-                <button id="themeToggleBtn" class="theme-toggle-button mr-4">
-                    <i class="fas fa-moon"></i> </button>
-                <span id="currentUser" class="text-sm mt-2 mr-4"></span>
-                <button id="logoutButton" class="btn btn-secondary" style="display: none;">Logout</button>
-            </div>
-        </header>
+    <header class="main-header">
+        <h1 class="header-title">Lab Inventory - Letran Calamba</h1>
+        <div class="user-info-controls">
+            <span id="currentUser"></span>
+            <button id="themeToggleBtn" class="theme-toggle-button">
+                <i class="fas fa-moon"></i> </button>
+            <button id="logoutButton" class="btn btn-danger" style="display: none;">Logout</button>
+        </div>
+    </header>
 
+    <div class="page-container">
         <div id="loginView" class="card max-w-md mx-auto">
             <h2 class="text-2xl font-semibold mb-6 text-center">Login</h2>
             <form id="loginForm">
@@ -441,11 +526,11 @@
         function setMode(isDark) {
             if (isDark) {
                 document.documentElement.classList.add('dark');
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>'; // Sun icon for dark mode
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>'; 
                 localStorage.setItem('theme', 'dark');
             } else {
                 document.documentElement.classList.remove('dark');
-                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>'; // Moon icon for light mode
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>'; 
                 localStorage.setItem('theme', 'light');
             }
         }
@@ -454,12 +539,11 @@
             setMode(!document.documentElement.classList.contains('dark'));
         });
 
-        // Check local storage for theme preference
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             setMode(true);
         } else {
-            setMode(false); // Default to light
+            setMode(false); 
         }
 
         // --- Utility Functions ---
@@ -486,6 +570,7 @@
         }
         
         function capitalizeFirstLetter(string) {
+            if (!string) return '';
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
@@ -502,8 +587,8 @@
                     <td>${item.availableQuantity}</td>
                     <td class="capitalize">${item.condition}</td>
                     <td>
-                        <button class="btn btn-sm btn-secondary mr-1 text-xs" onclick="openUpdateConditionModal(${item.id})">Condition</button>
-                        <button class="btn btn-sm btn-danger text-xs" onclick="deleteItem(${item.id})">Delete</button>
+                        <button class="btn btn-sm btn-secondary mr-1 text-xs py-1 px-2" onclick="openUpdateConditionModal(${item.id})">Condition</button>
+                        <button class="btn btn-sm btn-danger text-xs py-1 px-2" onclick="deleteItem(${item.id})">Delete</button>
                     </td>
                 `;
             });
@@ -514,15 +599,16 @@
             const lowerSearchTerm = searchTerm.toLowerCase();
             const filteredItems = inventory.filter(item => 
                 item.availableQuantity > 0 && 
-                (item.condition === 'good' || item.condition === 'fair') && // Only show borrowable items
+                (item.condition === 'good' || item.condition === 'fair') && 
                 (item.name.toLowerCase().includes(lowerSearchTerm) || 
                  item.category.toLowerCase().includes(lowerSearchTerm))
             );
 
             if (filteredItems.length === 0) {
-                noStudentItemsFound.style.display = 'block';
+                noStudentItemsFound.style.display = 'block'; // Keep this to hide/show the p tag
+                studentInventoryList.innerHTML = `<tr><td colspan="7" class="text-center py-4">${searchTerm ? 'No items match your search.' : 'No items currently available for borrowing.'}</td></tr>`;
             } else {
-                noStudentItemsFound.style.display = 'none';
+                noStudentItemsFound.style.display = 'none'; // Hide p tag if items found
                 filteredItems.forEach(item => {
                     const row = studentInventoryList.insertRow();
                     row.innerHTML = `
@@ -533,7 +619,7 @@
                         <td>${item.availableQuantity}</td>
                         <td class="capitalize">${item.condition}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary text-xs" onclick="openBorrowModal(${item.id})">Borrow</button>
+                            <button class="btn btn-sm btn-primary text-xs py-1 px-2" onclick="openBorrowModal(${item.id})">Borrow</button>
                         </td>
                     `;
                 });
@@ -542,6 +628,10 @@
         
         function renderAdminRequests() {
             adminRequestsList.innerHTML = '';
+            if (borrowingRequests.length === 0) {
+                adminRequestsList.innerHTML = '<tr><td colspan="7" class="text-center py-4">No borrowing requests at this time.</td></tr>';
+                return;
+            }
             borrowingRequests.forEach(req => {
                 const item = inventory.find(i => i.id === req.itemId);
                 const user = users.find(u => u.id === req.userId);
@@ -555,12 +645,12 @@
                     <td class="capitalize">${req.status}</td>
                     <td>
                         ${req.status === 'pending' ? `
-                            <button class="btn btn-sm btn-primary mr-1 text-xs" onclick="approveRequest(${req.id})">Approve</button>
-                            <button class="btn btn-sm btn-danger text-xs" onclick="rejectRequest(${req.id})">Reject</button>
+                            <button class="btn btn-sm btn-primary mr-1 text-xs py-1 px-2" onclick="approveRequest(${req.id})">Approve</button>
+                            <button class="btn btn-sm btn-danger text-xs py-1 px-2" onclick="rejectRequest(${req.id})">Reject</button>
                         ` : req.status === 'approved' ? `
-                            <button class="btn btn-sm btn-primary text-xs" onclick="markAsBorrowed(${req.id})">Mark Borrowed</button>
+                            <button class="btn btn-sm btn-primary text-xs py-1 px-2" onclick="markAsBorrowed(${req.id})">Mark Borrowed</button>
                         ` : req.status === 'borrowed' ? `
-                            <button class="btn btn-sm btn-primary text-xs" onclick="markAsReturned(${req.id})">Mark Returned</button>
+                            <button class="btn btn-sm btn-primary text-xs py-1 px-2" onclick="markAsReturned(${req.id})">Mark Returned</button>
                         ` : ''
                         }
                     </td>
@@ -571,6 +661,10 @@
         function renderStudentMyRequests() {
             studentRequestsList.innerHTML = '';
             const myRequests = borrowingRequests.filter(req => req.userId === currentUser.id);
+            if (myRequests.length === 0) {
+                studentRequestsList.innerHTML = '<tr><td colspan="5" class="text-center py-4">You have no active or past borrowing requests.</td></tr>';
+                return;
+            }
             myRequests.forEach(req => {
                 const item = inventory.find(i => i.id === req.itemId);
                 const row = studentRequestsList.insertRow();
@@ -594,7 +688,7 @@
 
             if (user) {
                 currentUser = user;
-                currentUserDisplay.textContent = `Logged in as: ${currentUser.username} (${currentUser.role})`;
+                currentUserDisplay.textContent = `Welcome, ${capitalizeFirstLetter(currentUser.username)}!`;
                 logoutButton.style.display = 'inline-block';
                 if (user.role === 'admin') {
                     showView(adminView);
@@ -638,7 +732,6 @@
         window.deleteItem = function(itemId) {
             const itemIndex = inventory.findIndex(item => item.id === itemId);
             if (itemIndex > -1) {
-                // Check if item has pending or active borrowing requests
                 const hasActiveRequests = borrowingRequests.some(req => req.itemId === itemId && (req.status === 'pending' || req.status === 'approved' || req.status === 'borrowed'));
                 if (hasActiveRequests) {
                     showMessage(`Cannot delete "${inventory[itemIndex].name}". It has active or pending borrowing requests.`);
@@ -652,7 +745,6 @@
             }
         }
 
-        // Student Search
         studentSearchInput.addEventListener('input', (e) => {
             renderStudentInventory(e.target.value);
         });
@@ -719,7 +811,6 @@
             if (adminView.style.display === 'block') renderAdminRequests();
         });
 
-        // Admin: Approve/Reject/Manage Requests
         window.approveRequest = function(requestId) {
             const request = borrowingRequests.find(r => r.id === requestId);
             const item = inventory.find(i => i.id === request.itemId);
@@ -767,7 +858,6 @@
             const item = inventory.find(i => i.id === request.itemId);
             if (request && item && request.status === 'borrowed') {
                 item.availableQuantity += request.quantity;
-                // Ensure available quantity does not exceed total quantity
                 if (item.availableQuantity > item.totalQuantity) {
                     item.availableQuantity = item.totalQuantity;
                 }
@@ -781,7 +871,6 @@
             }
         }
 
-        // Admin: Update Item Condition
         window.openUpdateConditionModal = function(itemId) {
             const item = inventory.find(i => i.id === itemId);
             if (item) {
@@ -810,19 +899,20 @@
             }
         });
 
-        // Admin: Report Generation (Simulated)
         generateInventoryReportBtn.addEventListener('click', () => {
-            showMessage("Inventory Report: This feature would typically generate a downloadable CSV or PDF. (Backend still on building)");
-            // In a real app, you'd collect data from `inventory` and format it.
+            showMessage("Inventory Report: This feature would typically generate a downloadable CSV or PDF. (Backend required)");
         });
         generateBorrowingReportBtn.addEventListener('click', () => {
-            showMessage("Borrowing History Report: This feature would typically generate a downloadable CSV or PDF. (Backend still on building)");
-            // In a real app, you'd collect data from `borrowingRequests` and format it.
+            showMessage("Borrowing History Report: This feature would typically generate a downloadable CSV or PDF. (Backend required)");
         });
-
 
         // --- Initial Setup ---
         showView(loginView);
+        // Initial render for empty tables if needed
+        renderStudentInventory();
+        renderAdminRequests();
+        renderStudentMyRequests();
+
 
     </script>
 </body>
